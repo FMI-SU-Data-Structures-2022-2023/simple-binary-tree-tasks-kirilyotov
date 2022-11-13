@@ -1,5 +1,6 @@
 #ifndef WEEK6_TREE_H
-
+#include <iostream>
+#include <vector>
 struct Node {
     int key;
     Node* left;
@@ -14,6 +15,9 @@ int sumElementsAtLevel(Node*, unsigned);
 int height(Node*);
 bool isBST(Node*);
 bool isSymmetric(Node*);
+void inorderTreeWalk(Node* tree, std::vector<int>& numbers);
+void preorderTreeWalk(Node* tree, std::vector<int>& numbers);
+void postorderTreeWalk(Node* tree, std::vector<int>& numbers);
 
 #define WEEK6_TREE_H
 
