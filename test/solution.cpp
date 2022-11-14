@@ -9,6 +9,17 @@ void clean(Node*& n) {
     clean(n->right);
     delete n;
 }
+Node* createTree(){
+    Node* tree = new Node(6);
+
+    tree->left = new Node(5);
+    tree->left->left = new Node(2);
+    tree->left->right = new Node(5);
+    tree->right = new Node(7);
+    tree->right->right = new Node(8);
+
+    return tree;
+}
 
 TEST_CASE("Validate countElements") {
     Node* test = new Node(5);
@@ -120,5 +131,65 @@ TEST_CASE("Validate isBST") {
     test->right->left = new Node(30);
     CHECK(isBST(test) == false);
 
+    clean(test);
+}
+
+TEST_CASE("Validate inorder tree walk"){
+    Node* test = createTree();
+    std::vector<int> expected;
+    expected.push_back(2);
+    expected.push_back(5);
+    expected.push_back(5);
+    expected.push_back(6);
+    expected.push_back(7);
+    expected.push_back(8);
+
+    std::vector<int> toTest;
+    inorderTreeWalk(test, toTest);
+    while (!expected.empty()){
+        CHECK(expected.back() == toTest.back());
+        expected.pop_back();
+        toTest.pop_back();
+    }
+    clean(test);
+}
+
+TEST_CASE("Validate preorder tree walk"){
+    Node* test = createTree();
+    std::vector<int> expected;
+    expected.push_back(6);
+    expected.push_back(5);
+    expected.push_back(2);
+    expected.push_back(5);
+    expected.push_back(7);
+    expected.push_back(8);
+
+    std::vector<int> toTest;
+    preorderTreeWalk(test, toTest);
+    while (!expected.empty()){
+        CHECK(expected.back() == toTest.back());
+        expected.pop_back();
+        toTest.pop_back();
+    }
+    clean(test);
+}
+
+TEST_CASE("Validate postorder tree walk"){
+    Node* test = createTree();
+    std::vector<int> expected;
+    expected.push_back(2);
+    expected.push_back(5);
+    expected.push_back(5);
+    expected.push_back(8);
+    expected.push_back(7);
+    expected.push_back(6);
+
+    std::vector<int> toTest;
+    postorderTreeWalk(test, toTest);
+    while (!expected.empty()){
+        CHECK(expected.back() == toTest.back());
+        expected.pop_back();
+        toTest.pop_back();
+    }
     clean(test);
 }
